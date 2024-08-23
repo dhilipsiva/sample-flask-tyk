@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  flask_app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+
+  tyk_gateway:
+    build:
+      context: .
+      dockerfile: tyk.dockerfile
+    depends_on:
+      - redis
+      - flask_app
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./tyk.conf:/opt/tyk-gateway/tyk.conf"
+      - "./flask-api.json:/opt/tyk-gateway/apps/flask-api.json"
+
