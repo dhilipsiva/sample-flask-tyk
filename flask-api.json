@@ -5,7 +5,7 @@
   "use_keyless": true,
   "definition": {
     "location": "header",
-    "key": "Authorization"
+    "key": "x-api-version"
   },
   "version_data": {
     "not_versioned": true,
